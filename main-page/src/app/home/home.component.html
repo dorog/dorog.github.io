@@ -1,6 +1,6 @@
 <div class="well text-center options">
-  <h2 style="padding-top: 60px; padding-bottom: 40px;">Make your choice!</h2>
-  <div class="row">
+  <h2 [@appear]="isAnimationStarted ? 'visible' : 'hidden'" style="padding-top: 60px; padding-bottom: 40px;">{{message}}</h2>
+  <div [@options]="isOptionsVisible ? 'visible' : 'hidden'" class="row">
       <div class="col-md-6">
           <a href="profile">
             <img src="https://fakeimg.pl/400x200">
