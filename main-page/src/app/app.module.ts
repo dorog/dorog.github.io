@@ -7,14 +7,15 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
-
+import { ClueComponent } from './clue/clue.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     ProjectsComponent,
-    HomeComponent
+    HomeComponent,
+    ClueComponent
   ],
   imports: [
     BrowserModule,

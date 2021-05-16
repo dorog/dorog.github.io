@@ -1,76 +1,49 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { animate, AnimationBuilder, style  } from '@angular/animations';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  animations: [
-    trigger('appear', [
-      state('visible', style({
-        opacity: 1,
-      })),
-      state('hidden', style({
-        opacity: 0,
-      })),
-      transition('hidden => visible', [
-        animate('2s')
-      ]),
-      transition('visible => hidden', [
-        animate('2s')
-      ]),
-    ]),
-    trigger('options', [
-      state('visible', style({
-        transform: 'scale(1)',
-      })),
-      state('hidden', style({
-        transform: 'scale(0)',
-      })),
-      transition('hidden => visible', [
-        animate('1s')
-      ]),
-    ])
-  ]
 })
 export class HomeComponent implements OnInit  {
 
-  messages =["I've been waiting for you...", "Finally, you decided to check out my website... Good idea!", "Make your choice!"];
+  @ViewChild('detectiveWall')
+  detectiveWall: ElementRef;
 
-  message = "";
-  isAnimationStarted = false;
+  constructor(private animationBuilder: AnimationBuilder) { }
 
-  isOptionsVisible = false;
+  ngOnInit(){ }
 
-  constructor() { }
+  currentLeftPosition = 0;
+  currentTopPosition = 0;
 
-  ngOnInit() {
-  }
+  onMove(left: number, top: number) {
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.changeText(this.messages, 0);
-    }, 1000);
-  }
+    let itemHeigth = 210;
+    let itemWidth = 410;
 
-  private changeText(messages: string[], iter: number){
-    this.message = messages[iter];
-    this.isAnimationStarted = true;
-    
-    if(iter < messages.length - 1){
-      setTimeout(() => {
-        this.isAnimationStarted = false;
-      }, 5000);
-      setTimeout(() => {
-        this.changeText(messages, iter + 1);
-      }, 7000);
-    }
-    else {
-      this.showOptions();
-    }
-  }
+    let calculatedLeft = 1920 / 2 - itemWidth / 2 + left;
+    let calculatedTop = 1089 / 2 - itemHeigth / 2 + top;
 
-  private showOptions() {
-    this.isOptionsVisible = true;
+    let distance = Math.pow(Math.pow(this.currentLeftPosition - calculatedLeft, 2) + Math.pow(this.currentTopPosition - calculatedTop, 2), 0.5);
+    let time = distance / 2;
+
+    console.log(time);
+
+    const animation = this.animationBuilder.build([
+      style({
+        transform: 'translate(' + this.currentLeftPosition + 'px,' + this.currentTopPosition + 'px)'
+      }),
+      animate(time, style({
+        transform: 'translate(' + calculatedLeft + 'px,' + calculatedTop + 'px)'
+      }))
+    ]);
+
+    const player = animation.create(this.detectiveWall.nativeElement);
+    player.play();
+
+    this.currentLeftPosition = calculatedLeft;
+    this.currentTopPosition = calculatedTop;
   }
 }

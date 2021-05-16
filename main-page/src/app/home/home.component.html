@@ -1,21 +1,7 @@
-<div class="well text-center options">
-  <h2 [@appear]="isAnimationStarted ? 'visible' : 'hidden'" style="padding-top: 60px; padding-bottom: 40px;">{{message}}</h2>
-  <div [@options]="isOptionsVisible ? 'visible' : 'hidden'" class="row">
-      <div class="col-md-6">
-          <a href="profile">
-            <img src="https://fakeimg.pl/400x200">
-          </a>
-          <div>
-            <p>I would like to know more about you as a person!</p>
-          </div>
-      </div>
-      <div class="col-md-6">
-          <a href="projects">
-            <img src="https://fakeimg.pl/400x200">
-          </a>
-          <div>
-            <p>I would like to know more about your projects!</p>
-          </div>
-      </div>
+<div class="well text-center options page">
+  <div class="wall" #detectiveWall>
+    <app-clue [left]="1000" [top]="150" [home]="this"></app-clue>
+    <app-clue [left]="300" [top]="350" [home]="this"></app-clue>
+    <app-clue [left]="700" [top]="700" [home]="this"></app-clue>
   </div>
 </div>
