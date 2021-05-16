@@ -17,11 +17,16 @@ export class ClueComponent implements OnInit {
   @Input()
   home: HomeComponent;
 
+  @Input()
+  destination: string;
+
+  isSelected = false;
+
   constructor() { }
 
   ngOnInit() { }
 
   selectClue() {
-    this.home.onMove(-this.left, -this.top);
+    this.home.onMove(this, -this.left, -this.top);
   }
 }

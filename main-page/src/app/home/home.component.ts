@@ -1,5 +1,6 @@
 import { animate, AnimationBuilder, style  } from '@angular/animations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ClueComponent } from '../clue/clue.component';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,13 @@ export class HomeComponent implements OnInit  {
   currentLeftPosition = 0;
   currentTopPosition = 0;
 
-  onMove(left: number, top: number) {
+  currentClue: ClueComponent = null;
+
+  onMove(clue: ClueComponent, left: number, top: number) {
+
+    if(this.currentClue !== null){
+      this.currentClue.isSelected = false;
+    }
 
     let itemHeigth = 210;
     let itemWidth = 410;
@@ -45,5 +52,8 @@ export class HomeComponent implements OnInit  {
 
     this.currentLeftPosition = calculatedLeft;
     this.currentTopPosition = calculatedTop;
+
+    clue.isSelected = true;
+    this.currentClue = clue;
   }
 }
